@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QAbstractButton>
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +18,23 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+private slots:
+    //void pushButtonClicked();
+    void pushButtonClicked();
+    void on_lineEdit_textEdited(const QString &arg1);
+    void on_number_button_clicked(QAbstractButton *button);
+    void textChangedCE();
+    void textChangedC();
+    void textChangedDel();
+    void textChangedDevide();
+    void textChangedMultiply();
+    void textChangedMinus();
+    void textChangedPlus();
+    void textChangedResult();
+    void textChangedPlusMinus();
 };
+
+
 
 #endif // MAINWINDOW_H
