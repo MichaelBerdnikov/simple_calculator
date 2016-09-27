@@ -18,6 +18,13 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QString first;
+    QString second;
+    QString action;
+    QString previousFirst;
+    QString previousSecond;
+    QString previousAction;
+    int act;
 
 private slots:
     //void pushButtonClicked();
@@ -31,7 +38,6 @@ private slots:
     void textChangedMultiply();
     void textChangedMinus();
     void textChangedPlus();
-    void textChangedResult();
     void textChangedPlusMinus();
 };
 

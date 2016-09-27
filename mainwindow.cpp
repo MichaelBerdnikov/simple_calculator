@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QObject::connect(ui->pushButton, &QPushButton::clicked, this, &pushButtonClicked);
+    QObject::connect(ui->pushButtonResult, &QPushButton::clicked, this, &pushButtonClicked);
     QObject::connect(ui->lineEdit, &QLineEdit::textEdited, this, &on_lineEdit_textEdited);
     QObject::connect(ui->pushButtonCE, &QPushButton::clicked, this, &textChangedCE);
     QObject::connect(ui->pushButtonC, &QPushButton::clicked, this, &textChangedC);
@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->pushButtonMultiply, &QPushButton::clicked, this, &textChangedMultiply);
     QObject::connect(ui->pushButtonMinus, &QPushButton::clicked, this, &textChangedMinus);
     QObject::connect(ui->pushButtonPlus, &QPushButton::clicked, this, &textChangedPlus);
-    QObject::connect(ui->pushButtonResult, &QPushButton::clicked, this, &textChangedResult);
     QObject::connect(ui->pushButtonPlusMinus, &QPushButton::clicked, this, &textChangedPlusMinus);
 }
 
@@ -59,45 +58,193 @@ void MainWindow::on_number_button_clicked(QAbstractButton *button)
 
 void MainWindow::textChangedCE()
 {
-
+    if (act == 3) {
+        second = "0";
+        act = 2;
+    } else if (act == 2) {
+        second = "0";
+        action = "";
+        act = 1;
+    } else if (act == 1) {
+        second = "0";
+        action = "";
+        first = "0";
+        act = 0;
+    } else {
+        second = "0";
+        action = "";
+        first = "0";
+        act = 0;
+    }
+    ui->lineEdit->setText("0");
 }
 
 void MainWindow::textChangedC()
 {
-
+    first = "0";
+    second = "0";
+    action = "";
+    previousFirst = "0";
+    previousSecond = "0";
+    previousAction = "";
+    ui->lineEdit->setText("0");
+    act = 0;
 }
 
 void MainWindow::textChangedDel()
 {
-
+    if (act == 3) {
+        if (second.size() != 0) {
+            QString temp = second;
+            second = "";
+            for (int i = 0; i < temp.size() - 1; i++) {
+                second += temp[i];
+            }
+        }
+    }
+    else if (act == 1) {
+        second = "0";
+        action = "";
+        if (first.size() != 0) {
+            QString temp = first;
+            first = "";
+            for (int i = 0; i < temp.size() - 1; i++) {
+                first += temp[i];
+            }
+        }
+        act = 1;
+    }
 }
 
 void MainWindow::textChangedDevide()
 {
-
+    if (act == 3) {
+        pushButtonClicked();
+        first = "0";
+        action = "/";
+        second = "";
+        act = 2;
+    } else if (act == 2) {
+        action = "/";
+        act = 2;
+    } else if (act == 1) {
+        first = ui->lineEdit->text();
+        action = "/";
+        act = 2;
+    } else {
+        second = "";
+        action = "/";
+        first = "0";
+        act = 2;
+    }
 }
 
 void MainWindow::textChangedMultiply()
 {
+    if (act == 3) {
+        pushButtonClicked();
+        first = "0";
+        action = "*";
+        second = "";
+        act = 2;
+    } else if (act == 2) {
+        action = "*";
+        act = 2;
+    } else if (act == 1) {
+        first = ui->lineEdit->text();
+        action = "*";
+        act = 2;
+    } else {
+        second = "";
+        action = "*";
+        first = "0";
+        act = 2;
+    }
 
 }
 
 void MainWindow::textChangedMinus()
 {
+    if (act == 3) {
+        pushButtonClicked();
+        first = "0";
+        action = "-";
+        second = "";
+        act = 2;
+    } else if (act == 2) {
+        action = "-";
+        act = 2;
+    } else if (act == 1) {
+        first = ui->lineEdit->text();
+        action = "-";
+        act = 2;
+    } else {
+        second = "";
+        action = "-";
+        first = "0";
+        act = 2;
+    }
 
 }
 
 void MainWindow::textChangedPlus()
 {
-
-}
-
-void MainWindow::textChangedResult()
-{
-
+    if (act == 3) {
+        pushButtonClicked();
+        first = "0";
+        action = "+";
+        second = "";
+        act = 2;
+    } else if (act == 2) {
+        action = "+";
+        act = 2;
+    } else if (act == 1) {
+        first = ui->lineEdit->text();
+        action = "+";
+        act = 2;
+    } else {
+        second = "";
+        action = "+";
+        first = "0";
+        act = 2;
+    }
 }
 
 void MainWindow::textChangedPlusMinus()
 {
-
+    if (act == 3) {
+        if (second[0] == '-') {
+            QString temp = second;
+            second = "";
+            for (int i = 1; i < temp.size(); i++) {
+                second += temp[i];
+            }
+        } else {
+            second = "-" + second;
+        }
+    } else if (act == 2) {
+        if (first[0] == '-') {
+            QString temp = first;
+            second = "";
+            for (int i = 1; i < temp.size(); i++) {
+                second += temp[i];
+            }
+        } else {
+            second = "-" + first;
+        }
+        act = 3;
+    } else if (act == 1) {
+        if (first[0] == '-') {
+            QString temp = first;
+            first = "";
+            for (int i = 1; i < temp.size(); i++) {
+                first += temp[i];
+            }
+        } else {
+            first = "-" + first;
+        }
+    } else {
+        first = "0";
+        act = 1;
+    }
 }
