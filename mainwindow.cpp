@@ -1,12 +1,18 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QMetaMethod>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
+    using ButtonClickedSignalType = void(QButtonGroup::*)(QAbstractButton*);
+
+    QObject::connect<ButtonClickedSignalType, decltype(&on_number_button_clicked)>
+            (ui->buttonGroup, &QButtonGroup::buttonClicked, this, &on_number_button_clicked);
     QObject::connect(ui->pushButtonResult, &QPushButton::clicked, this, &pushButtonClicked);
     QObject::connect(ui->lineEdit, &QLineEdit::textEdited, this, &on_lineEdit_textEdited);
     QObject::connect(ui->pushButtonCE, &QPushButton::clicked, this, &textChangedCE);
@@ -25,7 +31,62 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::pushButtonClicked() {
-
+    if (act == 3) {
+        if (action == "*") {
+            double firstN = first.toDouble();
+            double secondN = second.toDouble();
+            double result = secondN * firstN;
+            QString resultStr = QString::number(result);
+            ui->lineEdit->setText(resultStr);
+        } else if (action == "/") {
+            double firstN = first.toDouble();
+            double secondN = second.toDouble();
+            double result = secondN / firstN;
+            QString resultStr = QString::number(result);
+            ui->lineEdit->setText(resultStr);
+        } else if (action == "+") {
+            double firstN = first.toDouble();
+            double secondN = second.toDouble();
+            double result = secondN + firstN;
+            QString resultStr = QString::number(result);
+            ui->lineEdit->setText(resultStr);
+        } else if (action == "-") {
+            double firstN = first.toDouble();
+            double secondN = second.toDouble();
+            double result = secondN - firstN;
+            QString resultStr = QString::number(result);
+            ui->lineEdit->setText(resultStr);
+        }
+        act = 1;
+    } else if (act == 2) {
+        second = first;
+        if (action == "*") {
+            double firstN = first.toDouble();
+            double secondN = second.toDouble();
+            double result = secondN * firstN;
+            QString resultStr = QString::number(result);
+            ui->lineEdit->setText(resultStr);
+        } else if (action == "/") {
+            double firstN = first.toDouble();
+            double secondN = second.toDouble();
+            double result = secondN / firstN;
+            QString resultStr = QString::number(result);
+            ui->lineEdit->setText(resultStr);
+        } else if (action == "+") {
+            double firstN = first.toDouble();
+            double secondN = second.toDouble();
+            double result = secondN + firstN;
+            QString resultStr = QString::number(result);
+            ui->lineEdit->setText(resultStr);
+        } else if (action == "-") {
+            double firstN = first.toDouble();
+            double secondN = second.toDouble();
+            double result = secondN - firstN;
+            QString resultStr = QString::number(result);
+            ui->lineEdit->setText(resultStr);
+        }
+        act = 1;
+    }
 }
 
 void MainWindow::on_lineEdit_textEdited(const QString &newText)
@@ -46,6 +107,7 @@ void MainWindow::on_lineEdit_textEdited(const QString &newText)
 
 void MainWindow::on_number_button_clicked(QAbstractButton *button)
 {
+    if (act == 0 || act == 1) {
     QString letter = button->text();
     QString correct_text = ui->lineEdit->text();
     if (correct_text.contains(".") && letter == ".") {
@@ -54,26 +116,48 @@ void MainWindow::on_number_button_clicked(QAbstractButton *button)
     correct_text += letter;
     ui->lineEdit->setText(correct_text.replace(',', '.'));
     ui->lineEdit->setFocus();
+    act = 1;
+    } else if (act == 2) {
+        QString letter = button->text();
+        QString correct_text = ui->lineEdit->text();
+        if (correct_text.contains(".") && letter == ".") {
+            return;
+        }
+        correct_text += letter;
+        ui->lineEdit->setText(correct_text.replace(',', '.'));
+        ui->lineEdit->setFocus();
+        act = 3;
+    } else {
+        QString letter = button->text();
+        QString correct_text = ui->lineEdit->text();
+        if (correct_text.contains(".") && letter == ".") {
+            return;
+        }
+        correct_text += letter;
+        ui->lineEdit->setText(correct_text.replace(',', '.'));
+        ui->lineEdit->setFocus();
+        act = 3;
+    }
 }
 
 void MainWindow::textChangedCE()
 {
     if (act == 3) {
-        second = "0";
+        second = "";
         act = 2;
     } else if (act == 2) {
-        second = "0";
+        second = "";
         action = "";
         act = 1;
     } else if (act == 1) {
-        second = "0";
+        second = "";
         action = "";
-        first = "0";
+        first = "";
         act = 0;
     } else {
-        second = "0";
+        second = "";
         action = "";
-        first = "0";
+        first = "";
         act = 0;
     }
     ui->lineEdit->setText("0");
@@ -81,12 +165,9 @@ void MainWindow::textChangedCE()
 
 void MainWindow::textChangedC()
 {
-    first = "0";
-    second = "0";
+    first = "";
+    second = "";
     action = "";
-    previousFirst = "0";
-    previousSecond = "0";
-    previousAction = "";
     ui->lineEdit->setText("0");
     act = 0;
 }
@@ -101,6 +182,7 @@ void MainWindow::textChangedDel()
                 second += temp[i];
             }
         }
+        ui->lineEdit->setText(second);
     }
     else if (act == 1) {
         second = "0";
@@ -113,6 +195,7 @@ void MainWindow::textChangedDel()
             }
         }
         act = 1;
+        ui->lineEdit->setText(first);
     }
 }
 
@@ -120,7 +203,7 @@ void MainWindow::textChangedDevide()
 {
     if (act == 3) {
         pushButtonClicked();
-        first = "0";
+        first = "";
         action = "/";
         second = "";
         act = 2;
@@ -134,7 +217,7 @@ void MainWindow::textChangedDevide()
     } else {
         second = "";
         action = "/";
-        first = "0";
+        first = "";
         act = 2;
     }
 }
@@ -143,7 +226,7 @@ void MainWindow::textChangedMultiply()
 {
     if (act == 3) {
         pushButtonClicked();
-        first = "0";
+        first = "";
         action = "*";
         second = "";
         act = 2;
@@ -157,7 +240,7 @@ void MainWindow::textChangedMultiply()
     } else {
         second = "";
         action = "*";
-        first = "0";
+        first = "";
         act = 2;
     }
 
@@ -167,7 +250,7 @@ void MainWindow::textChangedMinus()
 {
     if (act == 3) {
         pushButtonClicked();
-        first = "0";
+        first = "";
         action = "-";
         second = "";
         act = 2;
@@ -181,7 +264,7 @@ void MainWindow::textChangedMinus()
     } else {
         second = "";
         action = "-";
-        first = "0";
+        first = "";
         act = 2;
     }
 
@@ -191,7 +274,7 @@ void MainWindow::textChangedPlus()
 {
     if (act == 3) {
         pushButtonClicked();
-        first = "0";
+        first = "";
         action = "+";
         second = "";
         act = 2;
@@ -205,7 +288,7 @@ void MainWindow::textChangedPlus()
     } else {
         second = "";
         action = "+";
-        first = "0";
+        first = "";
         act = 2;
     }
 }
@@ -244,7 +327,7 @@ void MainWindow::textChangedPlusMinus()
             first = "-" + first;
         }
     } else {
-        first = "0";
+        first = "";
         act = 1;
     }
 }

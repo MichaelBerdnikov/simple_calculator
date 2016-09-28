@@ -21,9 +21,6 @@ private:
     QString first;
     QString second;
     QString action;
-    QString previousFirst;
-    QString previousSecond;
-    QString previousAction;
     int act;
 
 private slots:
