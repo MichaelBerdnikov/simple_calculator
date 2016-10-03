@@ -3,6 +3,8 @@
 
 #include <QMetaMethod>
 
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -142,34 +144,17 @@ void MainWindow::on_number_button_clicked(QAbstractButton *button)
 
 void MainWindow::textChangedCE()
 {
-    if (act == 3) {
-        second = "";
-        act = 2;
-    } else if (act == 2) {
-        second = "";
-        action = "";
-        act = 1;
-    } else if (act == 1) {
-        second = "";
-        action = "";
-        first = "";
-        act = 0;
-    } else {
-        second = "";
-        action = "";
-        first = "";
-        act = 0;
-    }
+    if (first != 0 && )
+    first = 0;
+
     ui->lineEdit->setText("0");
 }
 
 void MainWindow::textChangedC()
 {
-    first = "";
-    second = "";
-    action = "";
-    ui->lineEdit->setText("0");
-    act = 0;
+    first = 0;
+    action.arithmeticOperation = "";
+    ui->lineEdit->setText("0");    
 }
 
 void MainWindow::textChangedDel()

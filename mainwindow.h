@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QAbstractButton>
 
+#include "action.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -18,10 +20,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QString first;
-    QString second;
+    double first;
     QString action;
-    int act;
+
+    //int act;
 
 private slots:
     //void pushButtonClicked();
