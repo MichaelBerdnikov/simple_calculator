@@ -7,7 +7,7 @@ class action
 private:
     QString arithmeticOperation;
 public:
-    action();
+    action(QString str);
     char act();
 };
 

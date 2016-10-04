@@ -1,6 +1,8 @@
 #include "action.h"
 
-action::action() {}
+action::action(QString text) {
+    arithmeticOperation = text;
+}
 
 char act() {
     if (arithmeticOperation == "*") {
