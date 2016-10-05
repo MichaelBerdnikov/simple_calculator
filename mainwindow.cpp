@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    mark = new Action (ui->lineEdit->text());
+    //mark = new Action (ui->lineEdit->text());
 
     using ButtonClickedSignalType = void(QButtonGroup::*)(QAbstractButton*);
 
@@ -35,15 +35,22 @@ MainWindow::~MainWindow()
 
 void MainWindow::pushButtonClicked() {
     QString temp = ui->lineEdit->text();
-    QString result;
+    double result;
     if (first != 0 && action != "") {
-        Action::mark(action)
-        result = first
-
+        //Action::mark(action)
+        if (action == "-") {
+            result = first - temp.toDouble();
+        } else if (action == "+") {
+            result = first + temp.toDouble();
+        } else if (action == "*") {
+            result = first * temp.toDouble();
+        } else {
+            result = first / temp.toDouble();
+        }
+        ui->lineEdit->setText(QString::number(result));
     }
-
-
-
+   // if (first != 0 && action == "") {}
+   // if (first == 0)
 }
 
 void MainWindow::on_lineEdit_textEdited(const QString &newText)

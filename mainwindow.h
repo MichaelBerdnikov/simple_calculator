@@ -22,7 +22,7 @@ private:
     Ui::MainWindow *ui;
     double first;
     QString action;
-    Action *mark;
+    //Action mark;
 
     //int act;
 

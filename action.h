@@ -1,13 +1,15 @@
 #ifndef ACTION_H
 #define ACTION_H
 
+#include <QString>
 
-class action
+
+class Action
 {
 private:
     QString arithmeticOperation;
 public:
-    action(QString str);
+    Action(QString str);
     char act();
 };
 

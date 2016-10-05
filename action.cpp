@@ -1,7 +1,7 @@
 #include "action.h"
 
-action::action(QString text) {
-    arithmeticOperation = text;
+Action::action(QString text) {
+    str = text;
 }
 
 char act() {
@@ -11,7 +11,7 @@ char act() {
         return '/';
     } else if (arithmeticOperation == "+") {
         return '+';
-    } else if (action == "-") {
+    } else if (arithmeticOperation == "-") {
         return '-';
     }
 }
