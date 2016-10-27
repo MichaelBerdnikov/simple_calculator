@@ -22,6 +22,7 @@ private:
     Ui::MainWindow *ui;
     double first;
     QString action;
+    bool action_clicked;
     //Action mark;
 
     //int act;

@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QMetaMethod>
-
+#include <QMessageBox>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -45,10 +45,20 @@ void MainWindow::pushButtonClicked() {
         } else if (action == "*") {
             result = first * temp.toDouble();
         } else {
+            if (temp.toDouble() != 0) {
             result = first / temp.toDouble();
+            } else {
+                QMessageBox *box = new QMessageBox(this);
+                box->setWindowTitle("Error");
+                box->setText("Division by zero is not allowed");
+                box->addButton(QMessageBox::Ok);
+                box->show();
+                return;
+            }
         }
         ui->lineEdit->setText(QString::number(result));
     }
+    action = "";
    // if (first != 0 && action == "") {}
    // if (first == 0)
 }
@@ -72,11 +82,16 @@ void MainWindow::on_lineEdit_textEdited(const QString &newText)
 void MainWindow::on_number_button_clicked(QAbstractButton *button)
 {
     QString letter = button->text();
+    if (action_clicked || (ui->lineEdit->text() == "0" && letter != ".")) {
+        ui->lineEdit->setText("");
+        action_clicked = false;
+    }
     QString correct_text = ui->lineEdit->text();
     if (correct_text.contains(".") && letter == ".") {
         return;
     }
     correct_text += letter;
+    // always
     ui->lineEdit->setText(correct_text.replace(',', '.'));
     ui->lineEdit->setFocus();    
 }
@@ -105,45 +120,59 @@ void MainWindow::textChangedDel()
 
 void MainWindow::textChangedDevide()
 {
+    if (action != "") {
+        pushButtonClicked();
+    }
     QString temp = ui->lineEdit->text();
     first = temp.toDouble();
     action = "/";
+    action_clicked = true;
 }
 
 void MainWindow::textChangedMultiply()
 {
+    if (action != "") {
+        pushButtonClicked();
+    }
     QString temp = ui->lineEdit->text();
     first = temp.toDouble();
     action = "*";
+    action_clicked = true;
 }
 
 void MainWindow::textChangedMinus()
 {
+    if (action != "") {
+        pushButtonClicked();
+    }
     QString temp = ui->lineEdit->text();
     first = temp.toDouble();
     action = "-";
+    action_clicked = true;
 }
 
 void MainWindow::textChangedPlus()
 {
+    if (action != "") {
+        pushButtonClicked();
+    }
     QString temp = ui->lineEdit->text();
     first = temp.toDouble();
     action = "+";
+    action_clicked = true;
 }
 
 void MainWindow::textChangedPlusMinus()
 {
     QString temp = ui->lineEdit->text();
+    if (temp == "0") {
+        return;
+    }
     QString result;
     if (temp[0] == '-') {
-        for (int i = 1; i < temp.size(); i++) {
-            result += temp[i];
-        }
+        result = temp.mid(1);
     } else {
-        result[0] = '-';
-        for (int i = 0; i < temp.size(); i++) {
-            result += temp[i];
-        }
+        result = '-' + temp;
     }
     ui->lineEdit->setText(result);
 }

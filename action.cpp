@@ -1,10 +1,10 @@
 #include "action.h"
 
-Action::action(QString text) {
-    str = text;
+Action::Action(QString str) {
+   arithmeticOperation = str;
 }
 
-char act() {
+char Action::act() {
     if (arithmeticOperation == "*") {
         return '*';
     } else if (arithmeticOperation == "/") {
