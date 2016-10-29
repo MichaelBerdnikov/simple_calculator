@@ -21,6 +21,7 @@ public:
 private:
     Ui::MainWindow *ui;
     double first;
+    double memory;
     QString action;
     bool action_clicked;
     //Action mark;
@@ -40,6 +41,14 @@ private slots:
     void textChangedMinus();
     void textChangedPlus();
     void textChangedPlusMinus();
+    void textChangedPercent();
+    void textChangedRoot();
+    void textChangedSquare();
+    void textChangedOneDelOnX();
+    void textChangedMC();
+    void textChangedMR();
+    void textChangedMPlus();
+    void textChangedMMinus();
 };
 
 

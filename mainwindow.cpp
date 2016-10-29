@@ -3,6 +3,7 @@
 
 #include <QMetaMethod>
 #include <QMessageBox>
+#include <math.h>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -26,6 +27,14 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->pushButtonMinus, &QPushButton::clicked, this, &textChangedMinus);
     QObject::connect(ui->pushButtonPlus, &QPushButton::clicked, this, &textChangedPlus);
     QObject::connect(ui->pushButtonPlusMinus, &QPushButton::clicked, this, &textChangedPlusMinus);
+    QObject::connect(ui->pushButtonPercent, &QPushButton::clicked, this, &textChangedPercent);
+    QObject::connect(ui->pushButtonRoot, &QPushButton::clicked, this, &textChangedRoot);
+    QObject::connect(ui->pushButtonSquare, &QPushButton::clicked, this, &textChangedSquare);
+    QObject::connect(ui->pushButtonOneDelOnX, &QPushButton::clicked, this, &textChangedOneDelOnX);
+    QObject::connect(ui->pushButtonMC, &QPushButton::clicked, this, &textChangedMC);
+    QObject::connect(ui->pushButtonMR, &QPushButton::clicked, this, &textChangedMR);
+    QObject::connect(ui->pushButtonMPlus, &QPushButton::clicked, this, &textChangedMPlus);
+    QObject::connect(ui->pushButtonMMinus, &QPushButton::clicked, this, &textChangedMMinus);
 }
 
 MainWindow::~MainWindow()
@@ -175,6 +184,76 @@ void MainWindow::textChangedPlusMinus()
         result = '-' + temp;
     }
     ui->lineEdit->setText(result);
+}
+
+void MainWindow::textChangedPercent()
+{
+    QString temp = ui->lineEdit->text();
+    double result;
+    if (first != 0 && action != "") {
+        result = 100 * (first / temp.toDouble());
+        ui->lineEdit->setText(QString::number(result));
+    }
+    action = "";
+}
+
+void MainWindow::textChangedRoot()
+{
+    QString temp = ui->lineEdit->text();
+    double result = temp.toDouble();
+    result = pow(result, 0.5);
+    ui->lineEdit->setText(QString::number(result));
+    action = "";
+}
+
+void MainWindow::textChangedSquare()
+{
+    QString temp = ui->lineEdit->text();
+    double result = temp.toDouble();
+    result = pow(result, 2);
+    ui->lineEdit->setText(QString::number(result));
+    action = "";
+}
+
+void MainWindow::textChangedOneDelOnX()
+{
+    QString temp = ui->lineEdit->text();
+    double result = temp.toDouble();
+    if (result != 0) {
+        result = 1/result;
+    }  else {
+                    QMessageBox *box = new QMessageBox(this);
+                    box->setWindowTitle("Error");
+                    box->setText("Division by zero is not allowed");
+                    box->addButton(QMessageBox::Ok);
+                    box->show();
+                    return;
+    }
+    ui->lineEdit->setText(QString::number(result));
+    action = "";
+}
+
+void MainWindow::textChangedMC()
+{
+    memory = 0;
+}
+
+void MainWindow::textChangedMR()
+{
+    ui->lineEdit->setText(QString::number(memory));
+    action_clicked = true;
+}
+
+void MainWindow::textChangedMPlus()
+{
+    memory = memory + (ui->lineEdit->text()).toDouble();
+    action_clicked = true;
+}
+
+void MainWindow::textChangedMMinus()
+{
+    memory = memory - (ui->lineEdit->text()).toDouble();
+    action_clicked = true;
 }
 
 
