@@ -121,54 +121,41 @@ void MainWindow::textChangedDel()
 {
     QString temp = ui->lineEdit->text();
     QString result;
-    for (int i = 0; i < temp.size() - 1; i++) {
-        result += temp[i];
-    }
+    result = temp.left(temp.size() - 1);
     ui->lineEdit->setText(result);
+}
+
+void MainWindow::operation(QString operation)
+{
+    if (action != "") {
+        pushButtonClicked();
+    }
+    QString temp = ui->lineEdit->text();
+    first = temp.toDouble();
+    action = operation;
+    action_clicked = true;
 }
 
 void MainWindow::textChangedDevide()
 {
-    if (action != "") {
-        pushButtonClicked();
-    }
-    QString temp = ui->lineEdit->text();
-    first = temp.toDouble();
-    action = "/";
-    action_clicked = true;
+    operation("/");
 }
+
+//Что-то не так, когда нажимаю плюс и другие действия несколько раз!!!
 
 void MainWindow::textChangedMultiply()
 {
-    if (action != "") {
-        pushButtonClicked();
-    }
-    QString temp = ui->lineEdit->text();
-    first = temp.toDouble();
-    action = "*";
-    action_clicked = true;
+    operation("*");
 }
 
 void MainWindow::textChangedMinus()
 {
-    if (action != "") {
-        pushButtonClicked();
-    }
-    QString temp = ui->lineEdit->text();
-    first = temp.toDouble();
-    action = "-";
-    action_clicked = true;
+    operation("-");
 }
 
 void MainWindow::textChangedPlus()
 {
-    if (action != "") {
-        pushButtonClicked();
-    }
-    QString temp = ui->lineEdit->text();
-    first = temp.toDouble();
-    action = "+";
-    action_clicked = true;
+    operation("+");
 }
 
 void MainWindow::textChangedPlusMinus()

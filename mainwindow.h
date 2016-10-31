@@ -36,6 +36,7 @@ private slots:
     void textChangedCE();
     void textChangedC();
     void textChangedDel();
+    void operation(QString operation);
     void textChangedDevide();
     void textChangedMultiply();
     void textChangedMinus();
