@@ -65,9 +65,11 @@ void MainWindow::pushButtonClicked() {
                 return;
             }
         }
-        ui->lineEdit->setText(QString::number(result));
+        ui->lineEdit->setText(QString::number(result));        
     }
     action = "";
+    action_clicked = true;
+    previous_action = false;
    // if (first != 0 && action == "") {}
    // if (first == 0)
 }
@@ -86,6 +88,7 @@ void MainWindow::on_lineEdit_textEdited(const QString &newText)
         }
     }
     ui->lineEdit->setText(correct_text.replace(',', '.'));
+    previous_action = false;
 }
 
 void MainWindow::on_number_button_clicked(QAbstractButton *button)
@@ -102,19 +105,22 @@ void MainWindow::on_number_button_clicked(QAbstractButton *button)
     correct_text += letter;
     // always
     ui->lineEdit->setText(correct_text.replace(',', '.'));
-    ui->lineEdit->setFocus();    
+    ui->lineEdit->setFocus();
+    previous_action = false;
 }
 
 void MainWindow::textChangedCE()
 {
     ui->lineEdit->setText("0");
+    previous_action = false;
 }
 
 void MainWindow::textChangedC()
 {
     first = 0;
     action = "";
-    ui->lineEdit->setText("0");    
+    ui->lineEdit->setText("0");
+    previous_action = false;
 }
 
 void MainWindow::textChangedDel()
@@ -123,17 +129,21 @@ void MainWindow::textChangedDel()
     QString result;
     result = temp.left(temp.size() - 1);
     ui->lineEdit->setText(result);
+    previous_action = false;
 }
 
 void MainWindow::operation(QString operation)
 {
-    if (action != "") {
-        pushButtonClicked();
+    if (!previous_action) {
+        if (action != "") {
+            pushButtonClicked();
+        }
+        QString temp = ui->lineEdit->text();
+        first = temp.toDouble();
     }
-    QString temp = ui->lineEdit->text();
-    first = temp.toDouble();
     action = operation;
     action_clicked = true;
+    previous_action = true;
 }
 
 void MainWindow::textChangedDevide()
@@ -141,7 +151,7 @@ void MainWindow::textChangedDevide()
     operation("/");
 }
 
-//Что-то не так, когда нажимаю плюс и другие действия несколько раз!!!
+//Что-то не так, когда  последовательность 8 * = = = Результат дает только первый раз при нажатии = !!!
 
 void MainWindow::textChangedMultiply()
 {
@@ -171,6 +181,7 @@ void MainWindow::textChangedPlusMinus()
         result = '-' + temp;
     }
     ui->lineEdit->setText(result);
+    previous_action = false;
 }
 
 void MainWindow::textChangedPercent()
@@ -182,6 +193,7 @@ void MainWindow::textChangedPercent()
         ui->lineEdit->setText(QString::number(result));
     }
     action = "";
+    previous_action = false;
 }
 
 void MainWindow::textChangedRoot()
@@ -191,6 +203,7 @@ void MainWindow::textChangedRoot()
     result = pow(result, 0.5);
     ui->lineEdit->setText(QString::number(result));
     action = "";
+    previous_action = false;
 }
 
 void MainWindow::textChangedSquare()
@@ -200,6 +213,7 @@ void MainWindow::textChangedSquare()
     result = pow(result, 2);
     ui->lineEdit->setText(QString::number(result));
     action = "";
+    previous_action = false;
 }
 
 void MainWindow::textChangedOneDelOnX()
@@ -218,17 +232,19 @@ void MainWindow::textChangedOneDelOnX()
     }
     ui->lineEdit->setText(QString::number(result));
     action = "";
+    previous_action = false;
 }
 
 void MainWindow::textChangedMC()
 {
-    memory = 0;
+    memory = 0;    
 }
 
 void MainWindow::textChangedMR()
 {
     ui->lineEdit->setText(QString::number(memory));
     action_clicked = true;
+    previous_action = false;
 }
 
 void MainWindow::textChangedMPlus()

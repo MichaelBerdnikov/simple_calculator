@@ -24,6 +24,7 @@ private:
     double memory;
     QString action;
     bool action_clicked;
+    bool previous_action;
     //Action mark;
 
     //int act;
