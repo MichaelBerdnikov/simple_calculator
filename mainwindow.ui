@@ -199,6 +199,12 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QPushButton" name="pushButtonResult">
     <property name="geometry">
