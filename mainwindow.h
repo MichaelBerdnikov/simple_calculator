@@ -49,6 +49,7 @@ private slots:
     void textChangedMMinus();
 
     void binaryActionClicked();
+    void powOperation(double base, double power);
 };
 
 

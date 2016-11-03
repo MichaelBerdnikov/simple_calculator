@@ -180,20 +180,14 @@ void MainWindow::textChangedRoot()
 {
     QString temp = ui->lineEdit->text();
     double result = temp.toDouble();
-    result = pow(result, 0.5);
-    ui->lineEdit->setText(QString::number(result));
-    action = "";
-    previous_action = false;
+    powOperation(result, 0.5);
 }
 
 void MainWindow::textChangedSquare()
 {
     QString temp = ui->lineEdit->text();
     double result = temp.toDouble();
-    result = pow(result, 2);
-    ui->lineEdit->setText(QString::number(result));
-    action = "";
-    previous_action = false;
+    powOperation(result, 2.0);
 }
 
 void MainWindow::textChangedOneDelOnX()
@@ -243,6 +237,14 @@ void MainWindow::binaryActionClicked()
 {
     QPushButton *button = dynamic_cast<QPushButton*>(sender());
     operation(button->text());
+}
+
+void MainWindow::powOperation(double base, double power)
+{
+    double result = pow(base, power);
+    ui->lineEdit->setText(QString::number(result));
+    action = "";
+    previous_action = false;
 }
 
 
