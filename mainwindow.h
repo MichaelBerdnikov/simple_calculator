@@ -38,10 +38,6 @@ private slots:
     void textChangedC();
     void textChangedDel();
     void operation(QString operation);
-    void textChangedDevide();
-    void textChangedMultiply();
-    void textChangedMinus();
-    void textChangedPlus();
     void textChangedPlusMinus();
     void textChangedPercent();
     void textChangedRoot();
@@ -51,6 +47,8 @@ private slots:
     void textChangedMR();
     void textChangedMPlus();
     void textChangedMMinus();
+
+    void binaryActionClicked();
 };
 
 

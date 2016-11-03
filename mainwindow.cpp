@@ -22,10 +22,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->pushButtonCE, &QPushButton::clicked, this, &textChangedCE);
     QObject::connect(ui->pushButtonC, &QPushButton::clicked, this, &textChangedC);
     QObject::connect(ui->pushButtonDel, &QPushButton::clicked, this, &textChangedDel);
-    QObject::connect(ui->pushButtonDevide, &QPushButton::clicked, this, &textChangedDevide);
-    QObject::connect(ui->pushButtonMultiply, &QPushButton::clicked, this, &textChangedMultiply);
-    QObject::connect(ui->pushButtonMinus, &QPushButton::clicked, this, &textChangedMinus);
-    QObject::connect(ui->pushButtonPlus, &QPushButton::clicked, this, &textChangedPlus);
+    QObject::connect(ui->pushButtonDevide, &QPushButton::clicked, this, &binaryActionClicked);
+    QObject::connect(ui->pushButtonMultiply, &QPushButton::clicked, this, &binaryActionClicked);
+    QObject::connect(ui->pushButtonMinus, &QPushButton::clicked, this, &binaryActionClicked);
+    QObject::connect(ui->pushButtonPlus, &QPushButton::clicked, this, &binaryActionClicked);
     QObject::connect(ui->pushButtonPlusMinus, &QPushButton::clicked, this, &textChangedPlusMinus);
     QObject::connect(ui->pushButtonPercent, &QPushButton::clicked, this, &textChangedPercent);
     QObject::connect(ui->pushButtonRoot, &QPushButton::clicked, this, &textChangedRoot);
@@ -146,27 +146,7 @@ void MainWindow::operation(QString operation)
     previous_action = true;
 }
 
-void MainWindow::textChangedDevide()
-{
-    operation("/");
-}
-
 //Что-то не так, когда  последовательность 8 * = = = Результат дает только первый раз при нажатии = !!!
-
-void MainWindow::textChangedMultiply()
-{
-    operation("*");
-}
-
-void MainWindow::textChangedMinus()
-{
-    operation("-");
-}
-
-void MainWindow::textChangedPlus()
-{
-    operation("+");
-}
 
 void MainWindow::textChangedPlusMinus()
 {
@@ -221,7 +201,7 @@ void MainWindow::textChangedOneDelOnX()
     QString temp = ui->lineEdit->text();
     double result = temp.toDouble();
     if (result != 0) {
-        result = 1/result;
+        result = 1.0 / result;
     }  else {
                     QMessageBox *box = new QMessageBox(this);
                     box->setWindowTitle("Error");
@@ -257,6 +237,12 @@ void MainWindow::textChangedMMinus()
 {
     memory = memory - (ui->lineEdit->text()).toDouble();
     action_clicked = true;
+}
+
+void MainWindow::binaryActionClicked()
+{
+    QPushButton *button = dynamic_cast<QPushButton*>(sender());
+    operation(button->text());
 }
 
 
