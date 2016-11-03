@@ -5,6 +5,7 @@
 #include <QAbstractButton>
 
 #include "action.h"
+#include "propertywindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,7 +27,7 @@ private:
     bool action_clicked;
     bool previous_action;
     //Action mark;
-
+    PropertyWindow *propertyWindow;
     //int act;
 
 private slots:
@@ -51,6 +52,8 @@ private slots:
     void binaryActionClicked();
     void powOperation(double base, double power);
     void setNumberToInputPanel(double number);
+    void on_actionExit_triggered();
+    void on_actionProperties_triggered();
 };
 
 

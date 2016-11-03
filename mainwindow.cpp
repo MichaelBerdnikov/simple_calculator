@@ -35,11 +35,15 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->pushButtonMR, &QPushButton::clicked, this, &textChangedMR);
     QObject::connect(ui->pushButtonMPlus, &QPushButton::clicked, this, &textChangedMPlus);
     QObject::connect(ui->pushButtonMMinus, &QPushButton::clicked, this, &textChangedMMinus);
+
+    propertyWindow = new PropertyWindow();
+    propertyWindow->setVisible(false);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete propertyWindow;
 }
 
 void MainWindow::pushButtonClicked() {
@@ -259,3 +263,13 @@ void MainWindow::setNumberToInputPanel(double number)
 }
 
 
+
+void MainWindow::on_actionExit_triggered()
+{
+    exit(0);
+}
+
+void MainWindow::on_actionProperties_triggered()
+{
+    propertyWindow->show();
+}

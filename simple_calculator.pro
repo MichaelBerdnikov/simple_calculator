@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    action.cpp
+    action.cpp \
+    propertywindow.cpp
 
 HEADERS  += mainwindow.h \
-    action.h
+    action.h \
+    propertywindow.h
 
 FORMS    += mainwindow.ui
