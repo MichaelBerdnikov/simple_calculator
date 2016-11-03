@@ -65,7 +65,7 @@ void MainWindow::pushButtonClicked() {
                 return;
             }
         }
-        ui->lineEdit->setText(QString::number(result));        
+        setNumberToInputPanel(result);
     }
     action = "";
     action_clicked = true;
@@ -170,7 +170,7 @@ void MainWindow::textChangedPercent()
     double result;
     if (first != 0 && action != "") {
         result = 100 * (first / temp.toDouble());
-        ui->lineEdit->setText(QString::number(result));
+        setNumberToInputPanel(result);
     }
     action = "";
     previous_action = false;
@@ -204,7 +204,7 @@ void MainWindow::textChangedOneDelOnX()
                     box->show();
                     return;
     }
-    ui->lineEdit->setText(QString::number(result));
+    setNumberToInputPanel(result);
     action = "";
     previous_action = false;
 }
@@ -216,7 +216,7 @@ void MainWindow::textChangedMC()
 
 void MainWindow::textChangedMR()
 {
-    ui->lineEdit->setText(QString::number(memory));
+    setNumberToInputPanel(memory);
     action_clicked = true;
     previous_action = false;
 }
@@ -242,9 +242,20 @@ void MainWindow::binaryActionClicked()
 void MainWindow::powOperation(double base, double power)
 {
     double result = pow(base, power);
-    ui->lineEdit->setText(QString::number(result));
+    setNumberToInputPanel(result);
     action = "";
     previous_action = false;
+}
+
+void MainWindow::setNumberToInputPanel(double number)
+{
+    static const int maxVisibleSymbols = 58;
+    QString text = QString::number(number, 'f', 4);
+    if (text.length() < maxVisibleSymbols) {
+        ui->lineEdit->setText(text);
+    } else {
+        ui->lineEdit->setText(QString::number(number, 'e'));
+    }
 }
 
 

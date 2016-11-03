@@ -50,6 +50,7 @@ private slots:
 
     void binaryActionClicked();
     void powOperation(double base, double power);
+    void setNumberToInputPanel(double number);
 };
 
 
