@@ -29,6 +29,7 @@ private:
     //Action mark;
     PropertyWindow *propertyWindow;
     //int act;
+    int decimalNumber = 4;
 
 private slots:
     //void pushButtonClicked();
@@ -54,6 +55,11 @@ private slots:
     void setNumberToInputPanel(double number);
     void on_actionExit_triggered();
     void on_actionProperties_triggered();
+
+    void actvateAdditionalButtons();
+    void deactivateAdditionalButtons();
+    void changeDecimalNumbers();
+
 };
 
 

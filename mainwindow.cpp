@@ -38,6 +38,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     propertyWindow = new PropertyWindow();
     propertyWindow->setVisible(false);
+
+    QObject::connect(PropertyWindow::activateAdditionalButtons, &QPushButton::clicked, this, &actvateAdditionalButtons);
+    QObject::connect(PropertyWindow::deactivateAdditionalButtons, &QPushButton::clicked, this, &deactivateAdditionalButtons);
+    QObject::connect(PropertyWindow::decimalNumbers, &QSpinBox::valueChanged, this, &changeDecimalNumbers);
 }
 
 MainWindow::~MainWindow()
@@ -254,7 +258,7 @@ void MainWindow::powOperation(double base, double power)
 void MainWindow::setNumberToInputPanel(double number)
 {
     static const int maxVisibleSymbols = 58;
-    QString text = QString::number(number, 'f', 4);
+    QString text = QString::number(number, 'f', decimalNumber);
     if (text.length() < maxVisibleSymbols) {
         ui->lineEdit->setText(text);
     } else {
@@ -273,3 +277,27 @@ void MainWindow::on_actionProperties_triggered()
 {
     propertyWindow->show();
 }
+
+void MainWindow::actvateAdditionalButtons()
+{
+    ui->pushButtonPercent->setVisible(true);
+    ui->pushButtonRoot->setVisible(true);
+    ui->pushButtonSquare->setVisible(true);
+    ui->pushButtonOneDelOnX->setVisible(true);
+}
+
+void MainWindow::deactivateAdditionalButtons()
+{
+    ui->pushButtonPercent->setVisible(false);
+    ui->pushButtonRoot->setVisible(false);
+    ui->pushButtonSquare->setVisible(false);
+    ui->pushButtonOneDelOnX->setVisible(false);
+}
+
+void MainWindow::changeDecimalNumbers()
+{
+    decimalNumber = PropertyWindow::decimalNumbers->value();
+}
+
+
+
