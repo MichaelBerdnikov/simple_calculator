@@ -29,7 +29,7 @@ private:
     //Action mark;
     PropertyWindow *propertyWindow;
     //int act;
-    int decimalNumber = 4;
+    int decimalNumber;
 
 private slots:
     //void pushButtonClicked();

@@ -1,6 +1,7 @@
 #ifndef PROPERTYWINDOW_H
 #define PROPERTYWINDOW_H
 
+#include <QWidget>
 #include <QtWidgets>
 #include <QLabel>
 #include <QWindow>
@@ -18,18 +19,19 @@ private:
 
 public:
     explicit PropertyWindow(QWidget *parent = 0);
-    QPushButton* activateAdditionalButtons;
-    QPushButton* deacivateAdditionalButtons;
+    QPushButton* activAdditionalButtons;
+    QPushButton* deactivAdditionalButtons;
     QSpinBox *decimalNumbers;
 
 signals:
 
 private slots:
-    void saveChangeDecimalNumber();
+
 
 
 
 public slots:
+    void saveChangeDecimalNumber(int newValue);
 
 };
 

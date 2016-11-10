@@ -39,9 +39,11 @@ MainWindow::MainWindow(QWidget *parent) :
     propertyWindow = new PropertyWindow();
     propertyWindow->setVisible(false);
 
-    QObject::connect(PropertyWindow::activateAdditionalButtons, &QPushButton::clicked, this, &actvateAdditionalButtons);
-    QObject::connect(PropertyWindow::deactivateAdditionalButtons, &QPushButton::clicked, this, &deactivateAdditionalButtons);
-    QObject::connect(PropertyWindow::decimalNumbers, &QSpinBox::valueChanged, this, &changeDecimalNumbers);
+    decimalNumber = 0;
+
+    QObject::connect(propertyWindow->activAdditionalButtons, &QPushButton::clicked, this, &actvateAdditionalButtons);
+    QObject::connect(propertyWindow->deactivAdditionalButtons, &QPushButton::clicked, this, &deactivateAdditionalButtons);
+    QObject::connect(propertyWindow->decimalNumbers, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &changeDecimalNumbers);
 }
 
 MainWindow::~MainWindow()
@@ -296,7 +298,7 @@ void MainWindow::deactivateAdditionalButtons()
 
 void MainWindow::changeDecimalNumbers()
 {
-    decimalNumber = PropertyWindow::decimalNumbers->value();
+    decimalNumber = propertyWindow->decimalNumbers->value();
 }
 
 
