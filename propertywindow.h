@@ -5,6 +5,7 @@
 #include <QtWidgets>
 #include <QLabel>
 #include <QWindow>
+#include "configuration.h"
 //#include <QBoxLayout>
 //#include <QAbstractButton>
 
@@ -19,19 +20,13 @@ private:
 
 public:
     explicit PropertyWindow(QWidget *parent = 0);
-    QPushButton* activAdditionalButtons;
-    QPushButton* deactivAdditionalButtons;
+    QCheckBox *activeAdditionalCheckBox;
     QSpinBox *decimalNumbers;
-
 signals:
-
-private slots:
-
-
-
-
+    void configurationChanged();
 public slots:
     void saveChangeDecimalNumber(int newValue);
+    void onActiveAdditionalCheckBoxStateChanged(int state);
 
 };
 

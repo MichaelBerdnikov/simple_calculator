@@ -6,6 +6,7 @@
 
 #include "action.h"
 #include "propertywindow.h"
+#include "currencyconverter.h"
 
 namespace Ui {
 class MainWindow;
@@ -29,7 +30,6 @@ private:
     //Action mark;
     PropertyWindow *propertyWindow;
     //int act;
-    int decimalNumber;
 
 private slots:
     //void pushButtonClicked();
@@ -56,9 +56,7 @@ private slots:
     void on_actionExit_triggered();
     void on_actionProperties_triggered();
 
-    void actvateAdditionalButtons();
-    void deactivateAdditionalButtons();
-    void changeDecimalNumbers();
+    void onConfigurationChanged();
 
 };
 

@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -281,6 +281,7 @@
     </property>
     <addaction name="actionProperties"/>
     <addaction name="actionExit"/>
+    <addaction name="actionCurrency_Converter"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -296,6 +297,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionCurrency_Converter">
+   <property name="text">
+    <string>Currency Converter</string>
    </property>
   </action>
  </widget>

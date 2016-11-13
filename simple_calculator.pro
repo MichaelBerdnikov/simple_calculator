@@ -15,10 +15,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     action.cpp \
-    propertywindow.cpp
+    propertywindow.cpp \
+    configuration.cpp \
+    currencyconverter.cpp
 
 HEADERS  += mainwindow.h \
     action.h \
-    propertywindow.h
+    propertywindow.h \
+    configuration.h \
+    currencyconverter.h
 
 FORMS    += mainwindow.ui

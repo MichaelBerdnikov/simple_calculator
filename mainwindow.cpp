@@ -39,17 +39,14 @@ MainWindow::MainWindow(QWidget *parent) :
     propertyWindow = new PropertyWindow();
     propertyWindow->setVisible(false);
 
-    decimalNumber = 0;
-
-    QObject::connect(propertyWindow->activAdditionalButtons, &QPushButton::clicked, this, &actvateAdditionalButtons);
-    QObject::connect(propertyWindow->deactivAdditionalButtons, &QPushButton::clicked, this, &deactivateAdditionalButtons);
-    QObject::connect(propertyWindow->decimalNumbers, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &changeDecimalNumbers);
+    QObject::connect(propertyWindow, &PropertyWindow::configurationChanged, this, &onConfigurationChanged);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete propertyWindow;
+    Configuration::save();
 }
 
 void MainWindow::pushButtonClicked() {
@@ -260,7 +257,7 @@ void MainWindow::powOperation(double base, double power)
 void MainWindow::setNumberToInputPanel(double number)
 {
     static const int maxVisibleSymbols = 58;
-    QString text = QString::number(number, 'f', decimalNumber);
+    QString text = QString::number(number, 'f', Configuration::getInstance().numbersAfterPoint);
     if (text.length() < maxVisibleSymbols) {
         ui->lineEdit->setText(text);
     } else {
@@ -280,6 +277,14 @@ void MainWindow::on_actionProperties_triggered()
     propertyWindow->show();
 }
 
+void MainWindow::onConfigurationChanged()
+{
+    ui->pushButtonPercent->setVisible(Configuration::getInstance().isAdditionalButtonsDisplayed);
+    ui->pushButtonRoot->setVisible(Configuration::getInstance().isAdditionalButtonsDisplayed);
+    ui->pushButtonSquare->setVisible(Configuration::getInstance().isAdditionalButtonsDisplayed);
+    ui->pushButtonOneDelOnX->setVisible(Configuration::getInstance().isAdditionalButtonsDisplayed);
+}
+/*
 void MainWindow::actvateAdditionalButtons()
 {
     ui->pushButtonPercent->setVisible(true);
@@ -300,6 +305,7 @@ void MainWindow::changeDecimalNumbers()
 {
     decimalNumber = propertyWindow->decimalNumbers->value();
 }
+*/
 
 
 
