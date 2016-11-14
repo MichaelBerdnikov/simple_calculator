@@ -29,6 +29,7 @@ private:
     bool previous_action;
     //Action mark;
     PropertyWindow *propertyWindow;
+    CurrencyConverter *actionCurrency_Converter;
     //int act;
 
 private slots:
@@ -55,6 +56,7 @@ private slots:
     void setNumberToInputPanel(double number);
     void on_actionExit_triggered();
     void on_actionProperties_triggered();
+    void on_actionConverter_triggered();
 
     void onConfigurationChanged();
 

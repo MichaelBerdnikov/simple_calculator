@@ -38,14 +38,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
     propertyWindow = new PropertyWindow();
     propertyWindow->setVisible(false);
+    actionCurrency_Converter = new CurrencyConverter();
+    actionCurrency_Converter->setVisible(false);
 
     QObject::connect(propertyWindow, &PropertyWindow::configurationChanged, this, &onConfigurationChanged);
+    QObject::connect(actionCurrency_Converter, &CurrencyConverter::customContextMenuRequested(), this, &on_actionConverter_triggered);
+    //Как сделать сигнал?
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete propertyWindow;
+    delete actionCurrency_Converter;
     Configuration::save();
 }
 
@@ -275,6 +280,11 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionProperties_triggered()
 {
     propertyWindow->show();
+}
+
+void MainWindow::on_actionConverter_triggered()
+{
+    actionCurrency_Converter->show();
 }
 
 void MainWindow::onConfigurationChanged()
