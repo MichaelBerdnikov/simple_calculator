@@ -10,7 +10,7 @@ class CurrencyConverter : public QWidget
 {
     Q_OBJECT
 private:
-    QGridLayout* layout;
+    QGridLayout* converterLayout;
     QLabel *currencyName;
     QLabel *currencyName2;
     QLabel *exchangeRate;

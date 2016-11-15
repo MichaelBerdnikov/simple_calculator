@@ -2,20 +2,20 @@
 
 CurrencyConverter::CurrencyConverter(QWidget *parent) : QWidget(parent)
 {
-    layout = new QGridLayout(this);
-    this->setLayout(layout);
+    converterLayout = new QGridLayout(this);
+    this->setLayout(converterLayout);
     currencyName = new QLabel("Ruble");
     currencyName2 = new QLabel("Dollar");
     exchangeRate = new QLabel("Rubles for one dollar");
     sumCurrency = new QLineEdit();
     sumCurrency2 = new QLineEdit();
     exchangeRateEdit = new QLineEdit();
-    layout->addWidget(currencyName, 0, 0);
-    layout->addWidget(currencyName2, 0, 2);
-    layout->addWidget(exchangeRate, 0, 4);
-    layout->addWidget(sumCurrency, 2, 0);
-    layout->addWidget(sumCurrency2, 2, 2);
-    layout->addWidget(exchangeRateEdit, 2, 4);
+    converterLayout->addWidget(currencyName, 0, 0);
+    converterLayout->addWidget(currencyName2, 0, 2);
+    converterLayout->addWidget(exchangeRate, 0, 4);
+    converterLayout->addWidget(sumCurrency, 2, 0);
+    converterLayout->addWidget(sumCurrency2, 2, 2);
+    converterLayout->addWidget(exchangeRateEdit, 2, 4);
     QObject::connect(sumCurrency, &QLineEdit::textEdited, this, &sumCurrencyEdit);
     QObject::connect(sumCurrency2, &QLineEdit::textEdited, this, &sumCurrency2Edit);
     QObject::connect(exchangeRateEdit, &QLineEdit::textEdited, this, &exchangeRateChange);

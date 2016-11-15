@@ -4,6 +4,7 @@
 #include <QMetaMethod>
 #include <QMessageBox>
 #include <math.h>
+#include <QAction>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -42,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     actionCurrency_Converter->setVisible(false);
 
     QObject::connect(propertyWindow, &PropertyWindow::configurationChanged, this, &onConfigurationChanged);
-    QObject::connect(actionCurrency_Converter, &CurrencyConverter::customContextMenuRequested(), this, &on_actionConverter_triggered);
+    QObject::connect(actionCurrency_Converter, &QAction::triggered, this, &on_actionConverter_triggered);
     //Как сделать сигнал?
 }
 
