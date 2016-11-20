@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <math.h>
 #include <QAction>
+#include <QTime>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -43,8 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
     actionCurrency_Converter->setVisible(false);
 
     QObject::connect(propertyWindow, &PropertyWindow::configurationChanged, this, &onConfigurationChanged);
-    QObject::connect(actionCurrency_Converter, &QAction::triggered, this, &on_actionConverter_triggered);
     //Как сделать сигнал?
+    onConfigurationChanged();
 }
 
 MainWindow::~MainWindow()
@@ -78,8 +79,22 @@ void MainWindow::pushButtonClicked() {
                 return;
             }
         }
+
         setNumberToInputPanel(result);
     }
+    QTime time = QTime::currentTime();
+    QString log = time.toString("hh:mm:ss.zzz") + " " + QString::number(first) + " " + action + " " + temp + " = " + QString::number(result);
+    QString path = QFileDialog::getSaveFileName(this,
+                                                QString("Save in log"),
+                                                QDir::currentPath(),
+                                                "*.txt");
+
+    QFile file(path);
+    file.open(QIODevice::Append);
+    QTextStream stream(&file);
+    stream << log << endl;
+    file.close();
+
     action = "";
     action_clicked = true;
     previous_action = false;
@@ -283,11 +298,6 @@ void MainWindow::on_actionProperties_triggered()
     propertyWindow->show();
 }
 
-void MainWindow::on_actionConverter_triggered()
-{
-    actionCurrency_Converter->show();
-}
-
 void MainWindow::onConfigurationChanged()
 {
     ui->pushButtonPercent->setVisible(Configuration::getInstance().isAdditionalButtonsDisplayed);
@@ -316,7 +326,13 @@ void MainWindow::changeDecimalNumbers()
 {
     decimalNumber = propertyWindow->decimalNumbers->value();
 }
+
+[INFO] 14:59:52.453 Calculator: 8 + 5 = 13
+        Computation took 34 ms.
+[INFO] ...
 */
 
-
-
+void MainWindow::on_actionCurrency_Converter_triggered()
+{
+    actionCurrency_Converter->show();
+}

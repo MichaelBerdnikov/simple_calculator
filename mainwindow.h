@@ -56,10 +56,10 @@ private slots:
     void setNumberToInputPanel(double number);
     void on_actionExit_triggered();
     void on_actionProperties_triggered();
-    void on_actionConverter_triggered();
 
     void onConfigurationChanged();
 
+    void on_actionCurrency_Converter_triggered();
 };
 
 

@@ -16,7 +16,7 @@ private:
     QLabel *exchangeRate;
     QLineEdit *sumCurrency;
     QLineEdit *sumCurrency2;
-    QLineEdit *exchangeRateEdit;
+    QDoubleSpinBox *exchangeRateEdit;
 
 
 public:
@@ -25,7 +25,7 @@ public:
 public slots:
     void sumCurrencyEdit(QString newValue);
     void sumCurrency2Edit(QString newValue2);
-    void exchangeRateChange(QString newRate);
+    void exchangeRateChange(double newRate);
 
 };
 

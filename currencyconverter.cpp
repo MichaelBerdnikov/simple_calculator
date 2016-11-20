@@ -9,7 +9,10 @@ CurrencyConverter::CurrencyConverter(QWidget *parent) : QWidget(parent)
     exchangeRate = new QLabel("Rubles for one dollar");
     sumCurrency = new QLineEdit();
     sumCurrency2 = new QLineEdit();
-    exchangeRateEdit = new QLineEdit();
+    exchangeRateEdit = new QDoubleSpinBox();
+    exchangeRateEdit->setDecimals(4);
+    exchangeRateEdit->setMinimum(0.0001);
+    exchangeRateEdit->setSingleStep(0.0001);
     converterLayout->addWidget(currencyName, 0, 0);
     converterLayout->addWidget(currencyName2, 0, 2);
     converterLayout->addWidget(exchangeRate, 0, 4);
@@ -18,52 +21,24 @@ CurrencyConverter::CurrencyConverter(QWidget *parent) : QWidget(parent)
     converterLayout->addWidget(exchangeRateEdit, 2, 4);
     QObject::connect(sumCurrency, &QLineEdit::textEdited, this, &sumCurrencyEdit);
     QObject::connect(sumCurrency2, &QLineEdit::textEdited, this, &sumCurrency2Edit);
-    QObject::connect(exchangeRateEdit, &QLineEdit::textEdited, this, &exchangeRateChange);
+    QObject::connect(exchangeRateEdit,
+                     static_cast<void(QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged),
+                     this,
+                     &exchangeRateChange);
 }
 
 void CurrencyConverter::sumCurrencyEdit(QString newValue)
 {
-    sumCurrency->text() = newValue;
-    if (exchangeRate->text().toDouble() != 0) {
-    sumCurrency2->setText(QString::number(newValue.toDouble() / exchangeRate->text().toDouble()));
-    } else {
-        QMessageBox *box = new QMessageBox(this);
-        box->setWindowTitle("Error");
-        box->setText("The exchange rate is not defined. Enter the exchange rate!");
-        box->addButton(QMessageBox::Ok);
-        box->show();
-        return;
-    }
+    sumCurrency2->setText(QString::number(newValue.toDouble() / exchangeRateEdit->value()));
 }
 
 void CurrencyConverter::sumCurrency2Edit(QString newValue2)
 {
-    sumCurrency2->text() = newValue2;
-    if (exchangeRate->text().toDouble() != 0) {
-        sumCurrency->setText(QString::number(newValue2.toDouble() * exchangeRate->text().toDouble()));
-    } else {
-        QMessageBox *box = new QMessageBox(this);
-        box->setWindowTitle("Error");
-        box->setText("The exchange rate is not defined. Enter the exchange rate!");
-        box->addButton(QMessageBox::Ok);
-        box->show();
-        return;
-    }
+    sumCurrency->setText(QString::number(newValue2.toDouble() * exchangeRateEdit->value()));
 }
 
-void CurrencyConverter::exchangeRateChange(QString newRate)
+void CurrencyConverter::exchangeRateChange(double newRate)
 {
-    exchangeRateEdit->text() = newRate;
-    if (exchangeRate->text().toDouble() != 0) {
-        sumCurrency2->setText(QString::number(sumCurrency->text().toDouble() / (exchangeRateEdit->text().toDouble())));
-    } else {
-        QMessageBox *box = new QMessageBox(this);
-        box->setWindowTitle("Error");
-        box->setText("The exchange rate is not defined. Enter the exchange rate!");
-        box->addButton(QMessageBox::Ok);
-        box->show();
-        return;
-    }
-
+    sumCurrencyEdit(sumCurrency->text());
 }
 

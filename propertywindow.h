@@ -22,11 +22,13 @@ public:
     explicit PropertyWindow(QWidget *parent = 0);
     QCheckBox *activeAdditionalCheckBox;
     QSpinBox *decimalNumbers;
+    QPushButton *openLogFile;
 signals:
     void configurationChanged();
 public slots:
     void saveChangeDecimalNumber(int newValue);
     void onActiveAdditionalCheckBoxStateChanged(int state);
+    void chooseLogFile();
 
 };
 

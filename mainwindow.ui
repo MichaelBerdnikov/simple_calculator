@@ -283,7 +283,14 @@
     <addaction name="actionExit"/>
     <addaction name="actionCurrency_Converter"/>
    </widget>
+   <widget class="QMenu" name="menuUtility">
+    <property name="title">
+     <string>Utility</string>
+    </property>
+    <addaction name="actionLogging"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuUtility"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionProperties">
@@ -302,6 +309,14 @@
   <action name="actionCurrency_Converter">
    <property name="text">
     <string>Currency Converter</string>
+   </property>
+  </action>
+  <action name="actionLogging">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Logging</string>
    </property>
   </action>
  </widget>

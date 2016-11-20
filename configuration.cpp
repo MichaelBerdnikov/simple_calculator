@@ -1,5 +1,7 @@
 #include "configuration.h"
 
+#include <QJsonObject>
+
 
 Configuration::Configuration()
 {
@@ -8,8 +10,9 @@ Configuration::Configuration()
     if (file.exists()) {
         file.open(QFile::ReadOnly);
         QTextStream stream(&file);
-        int displayed = Configuration::getInstance().isAdditionalButtonsDisplayed ? 1 : 0;
-        stream >> displayed >> Configuration::getInstance().numbersAfterPoint;
+        int displayed = 0;
+        stream >> displayed >> numbersAfterPoint;
+        isAdditionalButtonsDisplayed = displayed == 1;
         file.close();
     }
 }
