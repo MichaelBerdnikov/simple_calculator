@@ -57,6 +57,8 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::pushButtonClicked() {
+    QTime calculationTime;
+    calculationTime.start();
     QString temp = ui->lineEdit->text();
     double result;
     if (first != 0 && action != "") {
@@ -82,18 +84,27 @@ void MainWindow::pushButtonClicked() {
 
         setNumberToInputPanel(result);
     }
-    QTime time = QTime::currentTime();
-    QString log = time.toString("hh:mm:ss.zzz") + " " + QString::number(first) + " " + action + " " + temp + " = " + QString::number(result);
-    QString path = QFileDialog::getSaveFileName(this,
-                                                QString("Save in log"),
-                                                QDir::currentPath(),
-                                                "*.txt");
+    if (ui->actionLogging->isChecked()) {
+        QTime time = QTime::currentTime();
+        QString log = "[INFO] " +
+                      time.toString("hh:mm:ss.zzz") +
+                      " " + "Calculator: " + QString::number(first) + " " +
+                      action + " " + temp + " = " +
+                      QString::number(result);
+        QString duration;
+        duration = "        Computation took " + calculationTime.elapsed() + " ms. ";
+        QString path = QFileDialog::getSaveFileName(this,
+                                                    QString("Save in log"),
+                                                    QDir::currentPath(),
+                                                    "*.txt");
 
-    QFile file(path);
-    file.open(QIODevice::Append);
-    QTextStream stream(&file);
-    stream << log << endl;
-    file.close();
+        QFile file(path);
+        file.open(QIODevice::Append);
+        QTextStream stream(&file);
+        stream << log << endl << duration << endl;
+        file.close();
+    }
+
 
     action = "";
     action_clicked = true;
