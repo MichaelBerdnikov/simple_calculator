@@ -28,7 +28,7 @@ signals:
 public slots:
     void saveChangeDecimalNumber(int newValue);
     void onActiveAdditionalCheckBoxStateChanged(int state);
-    void chooseLogFile();
+    QString chooseLogFile();
 
 };
 

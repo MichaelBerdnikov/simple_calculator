@@ -8,6 +8,8 @@
 #include <QTime>
 
 
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -92,16 +94,20 @@ void MainWindow::pushButtonClicked() {
                       action + " " + temp + " = " +
                       QString::number(result);
         QString duration;
-        duration = "        Computation took " + calculationTime.elapsed() + " ms. ";
-        QString path = QFileDialog::getSaveFileName(this,
+        duration = "        Computation took " + QString::number(calculationTime.elapsed()) + " ms. ";
+        //Почему показывает 0 миллисекунд?
+        QString path = propertyWindow->chooseLogFile();
+                /*QFileDialog::getSaveFileName(this,
                                                     QString("Save in log"),
                                                     QDir::currentPath(),
-                                                    "*.txt");
+                                                    "*.txt");*/
 
         QFile file(path);
         file.open(QIODevice::Append);
+        //Как не открывать диалоговое окно?
         QTextStream stream(&file);
-        stream << log << endl << duration << endl;
+        stream << log << '\n' << duration << '\n';
+        //Почему не переносит строку???
         file.close();
     }
 
