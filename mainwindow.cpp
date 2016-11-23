@@ -106,7 +106,7 @@ void MainWindow::pushButtonClicked() {
         file.open(QIODevice::Append);
         //Как не открывать диалоговое окно?
         QTextStream stream(&file);
-        stream << log << '\n' << duration << '\n';
+        stream << log << '\r\n' << duration << '\r\n';
         //Почему не переносит строку???
         file.close();
     }
