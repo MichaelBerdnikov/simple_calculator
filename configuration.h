@@ -14,6 +14,7 @@ private:
 public:
     int numbersAfterPoint = 0;
     bool isAdditionalButtonsDisplayed = true;
+    QString logPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + "log.txt";
 
     static Configuration& getInstance() {
         static Configuration configuration;

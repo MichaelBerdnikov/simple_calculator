@@ -25,10 +25,11 @@ public:
     QPushButton *openLogFile;
 signals:
     void configurationChanged();
+    void logFilePathChanged(const QString& newPath);
 public slots:
     void saveChangeDecimalNumber(int newValue);
     void onActiveAdditionalCheckBoxStateChanged(int state);
-    QString chooseLogFile();
+    void chooseLogFile();
 
 };
 

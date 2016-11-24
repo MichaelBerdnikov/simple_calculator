@@ -63,7 +63,7 @@ void PropertyWindow::onActiveAdditionalCheckBoxStateChanged(int state)
     emit configurationChanged();
 }
 
-QString PropertyWindow::chooseLogFile()
+void PropertyWindow::chooseLogFile()
 {
     QString filename = QFileDialog::getOpenFileName(
                         this,
@@ -77,10 +77,11 @@ QString PropertyWindow::chooseLogFile()
                 box->setText("File is not defined");
                 box->addButton(QMessageBox::Ok);
                 box->show();
-                //return ;
+                return;
                 //Что здесь возвращать?
             }
-    return filename;
+    Configuration::getInstance().logPath = filename;
+    emit logFilePathChanged(filename);
 }
 
 

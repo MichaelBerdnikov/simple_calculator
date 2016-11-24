@@ -17,12 +17,14 @@ SOURCES += main.cpp\
     action.cpp \
     propertywindow.cpp \
     configuration.cpp \
-    currencyconverter.cpp
+    currencyconverter.cpp \
+    logger.cpp
 
 HEADERS  += mainwindow.h \
     action.h \
     propertywindow.h \
     configuration.h \
-    currencyconverter.h
+    currencyconverter.h \
+    logger.h
 
 FORMS    += mainwindow.ui

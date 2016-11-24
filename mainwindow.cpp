@@ -7,6 +7,8 @@
 #include <QAction>
 #include <QTime>
 
+#include "logger.h"
+
 
 
 
@@ -46,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
     actionCurrency_Converter->setVisible(false);
 
     QObject::connect(propertyWindow, &PropertyWindow::configurationChanged, this, &onConfigurationChanged);
+    QObject::connect(propertyWindow, &PropertyWindow::logFilePathChanged, &Logger::getInstance(), &Logger::onLogFilePathChanged);
     //Как сделать сигнал?
     onConfigurationChanged();
 }
@@ -86,30 +89,10 @@ void MainWindow::pushButtonClicked() {
 
         setNumberToInputPanel(result);
     }
-    if (ui->actionLogging->isChecked()) {
-        QTime time = QTime::currentTime();
-        QString log = "[INFO] " +
-                      time.toString("hh:mm:ss.zzz") +
-                      " " + "Calculator: " + QString::number(first) + " " +
+    QString logMessage = "Calculator: " + QString::number(first) + " " +
                       action + " " + temp + " = " +
                       QString::number(result);
-        QString duration;
-        duration = "        Computation took " + QString::number(calculationTime.elapsed()) + " ms. ";
-        //Почему показывает 0 миллисекунд?
-        QString path = propertyWindow->chooseLogFile();
-                /*QFileDialog::getSaveFileName(this,
-                                                    QString("Save in log"),
-                                                    QDir::currentPath(),
-                                                    "*.txt");*/
-
-        QFile file(path);
-        file.open(QIODevice::Append);
-        //Как не открывать диалоговое окно?
-        QTextStream stream(&file);
-        stream << log << '\r\n' << duration << '\r\n';
-        //Почему не переносит строку???
-        file.close();
-    }
+    Logger::getInstance().info(logMessage, calculationTime.elapsed());
 
 
     action = "";
