@@ -26,6 +26,7 @@ public slots:
     void sumCurrencyEdit(QString newValue);
     void sumCurrency2Edit(QString newValue2);
     void exchangeRateChange(double newRate);
+    void saveToLog();
 
 };
 

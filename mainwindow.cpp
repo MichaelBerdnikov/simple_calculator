@@ -7,6 +7,7 @@
 #include <QAction>
 #include <QTime>
 
+
 #include "logger.h"
 
 
@@ -41,11 +42,14 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->pushButtonMR, &QPushButton::clicked, this, &textChangedMR);
     QObject::connect(ui->pushButtonMPlus, &QPushButton::clicked, this, &textChangedMPlus);
     QObject::connect(ui->pushButtonMMinus, &QPushButton::clicked, this, &textChangedMMinus);
+    QObject::connect(ui->actionShow_previous_activity, &QAction::triggered, this, &showPreviousActions);
 
     propertyWindow = new PropertyWindow();
     propertyWindow->setVisible(false);
     actionCurrency_Converter = new CurrencyConverter();
     actionCurrency_Converter->setVisible(false);
+    ui->listPreviousActions->setVisible(false);
+
 
     QObject::connect(propertyWindow, &PropertyWindow::configurationChanged, this, &onConfigurationChanged);
     QObject::connect(propertyWindow, &PropertyWindow::logFilePathChanged, &Logger::getInstance(), &Logger::onLogFilePathChanged);
@@ -335,4 +339,10 @@ void MainWindow::changeDecimalNumbers()
 void MainWindow::on_actionCurrency_Converter_triggered()
 {
     actionCurrency_Converter->show();
+}
+
+void MainWindow::showPreviousActions()
+{
+    ui->listPreviousActions->addItems();
+    ui->listPreviousActions->setVisible(true);
 }

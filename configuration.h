@@ -27,7 +27,7 @@ public:
         file.open(QFile::WriteOnly);
         QTextStream stream(&file);
         int displayed = Configuration::getInstance().isAdditionalButtonsDisplayed ? 1 : 0;
-        stream << displayed << " " << Configuration::getInstance().numbersAfterPoint;
+        stream << displayed << " " << Configuration::getInstance().numbersAfterPoint << " " << Configuration::getInstance().logPath;
         file.close();
     }
 

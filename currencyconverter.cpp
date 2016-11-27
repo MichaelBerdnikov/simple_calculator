@@ -1,4 +1,5 @@
 #include "currencyconverter.h"
+#include "logger.h"
 
 CurrencyConverter::CurrencyConverter(QWidget *parent) : QWidget(parent)
 {
@@ -30,15 +31,25 @@ CurrencyConverter::CurrencyConverter(QWidget *parent) : QWidget(parent)
 void CurrencyConverter::sumCurrencyEdit(QString newValue)
 {
     sumCurrency2->setText(QString::number(newValue.toDouble() / exchangeRateEdit->value()));
+    saveToLog();
 }
 
 void CurrencyConverter::sumCurrency2Edit(QString newValue2)
 {
     sumCurrency->setText(QString::number(newValue2.toDouble() * exchangeRateEdit->value()));
+    saveToLog();
 }
 
 void CurrencyConverter::exchangeRateChange(double newRate)
 {
     sumCurrencyEdit(sumCurrency->text());
+    saveToLog();
+}
+
+void CurrencyConverter::saveToLog()
+{
+    QString logMessage = "Currency converter: " + sumCurrency->text() + " " +
+                      sumCurrency2->text() + " " + exchangeRateEdit->text();
+    Logger::getInstance().info(logMessage);
 }
 

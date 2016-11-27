@@ -60,6 +60,7 @@ private slots:
     void onConfigurationChanged();
 
     void on_actionCurrency_Converter_triggered();
+    void showPreviousActions();
 };
 
 
