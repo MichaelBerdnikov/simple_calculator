@@ -343,6 +343,11 @@ void MainWindow::on_actionCurrency_Converter_triggered()
 
 void MainWindow::showPreviousActions()
 {
-    ui->listPreviousActions->addItems();
+    MainWindow::resize(700, 301);
+    QFile filename(Configuration::getInstance().logPath);
+    filename.open(QFile::ReadOnly);
+    QString fromFile = filename.readAll();
+    filename.close();
+    ui->listPreviousActions->addItem(fromFile);
     ui->listPreviousActions->setVisible(true);
 }
