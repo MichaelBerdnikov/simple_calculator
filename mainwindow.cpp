@@ -343,7 +343,12 @@ void MainWindow::on_actionCurrency_Converter_triggered()
 
 void MainWindow::showPreviousActions()
 {
-    MainWindow::resize(700, 301);
+    QPropertyAnimation* animation = new QPropertyAnimation(this, "geometry");
+    animation->setDuration(500);
+        animation->setStartValue(QRect(200, 200, 404, 301));
+        animation->setEndValue(QRect(200, 200, 700, 301));
+        animation->start();
+    //MainWindow::resize(700, 301);
     QFile filename(Configuration::getInstance().logPath);
     filename.open(QFile::ReadOnly);
     QString fromFile = filename.readAll();
