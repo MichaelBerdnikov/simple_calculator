@@ -27,6 +27,7 @@ private:
     QString action;
     bool action_clicked;
     bool previous_action;
+    bool log_is_shown;
     //Action mark;
     PropertyWindow *propertyWindow;
     CurrencyConverter *actionCurrency_Converter;
@@ -60,7 +61,7 @@ private slots:
     void onConfigurationChanged();
 
     void on_actionCurrency_Converter_triggered();
-    void showPreviousActions();
+    void showHidePreviousActions();
 };
 
 

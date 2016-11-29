@@ -6,6 +6,7 @@
 #include <math.h>
 #include <QAction>
 #include <QTime>
+#include <QEasingCurve>
 
 
 #include "logger.h"
@@ -42,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->pushButtonMR, &QPushButton::clicked, this, &textChangedMR);
     QObject::connect(ui->pushButtonMPlus, &QPushButton::clicked, this, &textChangedMPlus);
     QObject::connect(ui->pushButtonMMinus, &QPushButton::clicked, this, &textChangedMMinus);
-    QObject::connect(ui->actionShow_previous_activity, &QAction::triggered, this, &showPreviousActions);
+    QObject::connect(ui->actionShow_previous_activity, &QAction::triggered, this, &showHidePreviousActions);
 
     propertyWindow = new PropertyWindow();
     propertyWindow->setVisible(false);
@@ -341,18 +342,29 @@ void MainWindow::on_actionCurrency_Converter_triggered()
     actionCurrency_Converter->show();
 }
 
-void MainWindow::showPreviousActions()
+void MainWindow::showHidePreviousActions()
 {
     QPropertyAnimation* animation = new QPropertyAnimation(this, "geometry");
     animation->setDuration(500);
+    if (!log_is_shown) {
         animation->setStartValue(QRect(200, 200, 404, 301));
         animation->setEndValue(QRect(200, 200, 700, 301));
         animation->start();
-    //MainWindow::resize(700, 301);
-    QFile filename(Configuration::getInstance().logPath);
-    filename.open(QFile::ReadOnly);
-    QString fromFile = filename.readAll();
-    filename.close();
-    ui->listPreviousActions->addItem(fromFile);
-    ui->listPreviousActions->setVisible(true);
+        //MainWindow::resize(700, 301);
+        QFile filename(Configuration::getInstance().logPath);
+        filename.open(QFile::ReadOnly);
+        QString fromFile = filename.readAll();
+        filename.close();
+        ui->listPreviousActions->addItem(fromFile);
+        ui->listPreviousActions->setVisible(true);
+        log_is_shown = true;
+    } else {
+        animation->setStartValue(QRect(200, 200, 700, 301));
+        animation->setEndValue(QRect(200, 200, 404, 301));
+        animation->start();
+        //MainWindow::resize(700, 301);
+        ui->listPreviousActions->clear();
+        ui->listPreviousActions->setVisible(false);
+        log_is_shown = false;
+    }
 }
