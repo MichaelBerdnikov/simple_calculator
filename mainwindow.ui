@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>404</width>
-    <height>301</height>
+    <width>406</width>
+    <height>315</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -271,17 +271,17 @@
       <x>420</x>
       <y>40</y>
       <width>256</width>
-      <height>192</height>
+      <height>201</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="textFromFile">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>420</x>
       <y>40</y>
-      <width>241</width>
-      <height>191</height>
+      <width>261</width>
+      <height>201</height>
      </rect>
     </property>
     <property name="text">
@@ -294,7 +294,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>404</width>
+     <width>406</width>
      <height>21</height>
     </rect>
    </property>

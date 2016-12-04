@@ -62,6 +62,7 @@ private slots:
 
     void on_actionCurrency_Converter_triggered();
     void showHidePreviousActions();
+    void readFromLog();
 };
 
 

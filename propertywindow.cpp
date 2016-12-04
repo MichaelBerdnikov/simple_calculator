@@ -8,7 +8,7 @@ PropertyWindow::PropertyWindow(QWidget *parent) : QWidget(parent)
 {
     layout = new QGridLayout(this);
     this->setLayout(layout);
-    activeAdditionalCheckBox = new QCheckBox("Show additional buutons", this);
+    activeAdditionalCheckBox = new QCheckBox("Show additional buttons", this);
     activeAdditionalCheckBox->setChecked(Configuration::getInstance().isAdditionalButtonsDisplayed);
     label = new QLabel("Select a number of decimal numbers");
     openLogFile = new QPushButton("Select a log file");
@@ -28,7 +28,7 @@ PropertyWindow::PropertyWindow(QWidget *parent) : QWidget(parent)
     */
     layout->addWidget(activeAdditionalCheckBox, 0, 0);
     layout->addWidget(label, 2, 0);
-    layout->addWidget(decimalNumbers, 2, 2);
+    layout->addWidget(decimalNumbers, 2, 4);
     layout->addWidget(openLogFile, 4, 0);
 
     QObject::connect(PropertyWindow::decimalNumbers, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &saveChangeDecimalNumber);
@@ -37,6 +37,7 @@ PropertyWindow::PropertyWindow(QWidget *parent) : QWidget(parent)
 
     //label = new QLabel("Hi", this);
     //label->show();
+
 }
 
 void PropertyWindow::saveChangeDecimalNumber(int newValue)

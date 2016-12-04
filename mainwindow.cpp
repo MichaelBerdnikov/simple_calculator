@@ -51,7 +51,6 @@ MainWindow::MainWindow(QWidget *parent) :
     actionCurrency_Converter->setVisible(false);
     ui->listPreviousActions->setVisible(false);
 
-
     QObject::connect(propertyWindow, &PropertyWindow::configurationChanged, this, &onConfigurationChanged);
     QObject::connect(propertyWindow, &PropertyWindow::logFilePathChanged, &Logger::getInstance(), &Logger::onLogFilePathChanged);
     //Как сделать сигнал?
@@ -98,8 +97,9 @@ void MainWindow::pushButtonClicked() {
                       action + " " + temp + " = " +
                       QString::number(result);
     Logger::getInstance().info(logMessage, calculationTime.elapsed());
-
-
+    QString mes = "[INFO] " + QTime::currentTime().toString("hh:mm:ss.zzz") + " " + logMessage + ". Computation took " + QString::number(calculationTime.elapsed()) + " ms.";
+    ui->listPreviousActions->addItem(mes);
+    //readFromLog();
     action = "";
     action_clicked = true;
     previous_action = false;
@@ -347,15 +347,11 @@ void MainWindow::showHidePreviousActions()
     QPropertyAnimation* animation = new QPropertyAnimation(this, "geometry");
     animation->setDuration(500);
     if (!log_is_shown) {
-        animation->setStartValue(QRect(200, 200, 404, 301));
-        animation->setEndValue(QRect(200, 200, 700, 301));
+        animation->setStartValue(QRect(this->x(), this->y(), 404, 301));
+        animation->setEndValue(QRect(this->x(), this->y(), 700, 301));
         animation->start();
         //MainWindow::resize(700, 301);
-        QFile filename(Configuration::getInstance().logPath);
-        filename.open(QFile::ReadOnly);
-        QString fromFile = filename.readAll();
-        filename.close();
-        ui->listPreviousActions->addItem(fromFile);
+        readFromLog();
         ui->listPreviousActions->setVisible(true);
         log_is_shown = true;
     } else {
@@ -367,4 +363,14 @@ void MainWindow::showHidePreviousActions()
         ui->listPreviousActions->setVisible(false);
         log_is_shown = false;
     }
+}
+
+void MainWindow::readFromLog()
+{
+    QFile filename(Configuration::getInstance().logPath);
+    filename.open(QFile::ReadOnly);
+    QString fromFile = filename.readAll();
+    filename.close();
+    ui->listPreviousActions->clear();
+    ui->listPreviousActions->addItem(fromFile);
 }
